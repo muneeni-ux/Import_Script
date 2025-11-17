@@ -204,7 +204,7 @@ if not df['LAT'].isnull().all():
 else:
     print("\nSkipping specific crime geospatial plot as LAT/LON data is unavailable.")
 
-
+     
 # %% [markdown]
 # ## 4. Summary and Interpretation
 #
