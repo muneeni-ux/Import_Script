@@ -325,3 +325,5 @@ plt.show()
 # *   **Action 4: Upsell Support Services.**
 #     *   **Recommendation:** Proactively offer bundled discounts for `TechSupport` and `OnlineSecurity` to customers who don't have them, especially if they also have other risk factors like a month-to-month contract. This can increase customer "stickiness" and reduce churn.
 
+
+# %%
