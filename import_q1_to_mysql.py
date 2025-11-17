@@ -20,10 +20,10 @@ import os
 # === CONFIGURE THESE BEFORE RUNNING ===
 MYSQL_HOST = "localhost"
 MYSQL_USER = "root"
-MYSQL_PASSWORD = "admin"
-MYSQL_DATABASE = "testdb"
+MYSQL_PASSWORD = "Faith@2007"
+MYSQL_DATABASE = "data_analytics"
 
-FILE_PATH = r"C:\Users\dell\OneDrive\Dokumente\Data Analytics\Data Analytics\Q1 Dataset.csv"
+FILE_PATH = r"/home/timothy/codingprojects/Import_Script/Q1 Dataset.csv"
 SHEET_NAME = None
 TABLE_NAME = "q1_data"
 
