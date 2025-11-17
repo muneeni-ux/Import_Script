@@ -1,12 +1,12 @@
 """
-Auto-generated script to import the uploaded Q1 data into a MySQL table.
+Auto-generated script to import the uploaded Q2 data into a MySQL table.
 Replace the MySQL connection placeholders with your credentials, then run:
 
-    python import_q1_to_mysql.py
+    python import_Q2_to_mysql.py
 
 This script will:
- - create a table named "q1_data" (if not exists) inferred from the Excel headers,
- - insert all rows from the file "Q1 Dataset.csv" (sheet: (n/a)),
+ - create a table named "q2_data" (if not exists) inferred from the Excel headers,
+ - insert all rows from the file "Q2 Dataset.csv" (sheet: (n/a)),
  - print progress.
 
 Make sure you have installed:
@@ -23,33 +23,36 @@ MYSQL_USER = "root"
 MYSQL_PASSWORD = "admin"
 MYSQL_DATABASE = "testdb"
 
-FILE_PATH = r"C:\Users\dell\OneDrive\Dokumente\Data Analytics\Data Analytics\Q1 Dataset.csv"
+FILE_PATH = r"C:\Users\dell\OneDrive\Dokumente\Data Analytics\Data Analytics\Q2 Dataset.csv"
 SHEET_NAME = None
-TABLE_NAME = "q1_data"
+TABLE_NAME = "q2_data"
 
 df = None  # Will be loaded in main()
 
 # inferred CREATE TABLE statement
-CREATE_STMT = r"""CREATE TABLE IF NOT EXISTS `q1_data` (
+CREATE_STMT = r"""CREATE TABLE IF NOT EXISTS `q2_data` (
   id INT AUTO_INCREMENT PRIMARY KEY,
-  `Row_ID` INT,
-  `Order_ID` VARCHAR(50),
-  `Order_Date` VARCHAR(50),
-  `Ship_Date` VARCHAR(50),
-  `Ship_Mode` VARCHAR(50),
-  `Customer_ID` VARCHAR(50),
-  `Customer_Name` VARCHAR(50),  
-  `Segment` VARCHAR(50),
-  `Country` VARCHAR(50),
-  `City` VARCHAR(50),
-  `State` VARCHAR(50),
-  `Postal_Code` DOUBLE,
-  `Region` VARCHAR(50),
-  `Product_ID` VARCHAR(50),
-  `Category` VARCHAR(50),
-  `Sub_Category` VARCHAR(50),
-  `Product_Name` VARCHAR(152),
-  `Sales` DOUBLE
+  `customerID` VARCHAR(50),
+  `gender` VARCHAR(50),
+  `SeniorCitizen` INT,
+  `Partner` VARCHAR(50),
+  `Dependents` VARCHAR(50),
+  `tenure` INT,
+  `PhoneService` VARCHAR(50),
+  `MultipleLines` VARCHAR(50),
+  `InternetService` VARCHAR(50),
+  `OnlineSecurity` VARCHAR(50),
+  `OnlineBackup` VARCHAR(50),
+  `DeviceProtection` VARCHAR(50),
+  `TechSupport` VARCHAR(50),
+  `StreamingTV` VARCHAR(50),
+  `StreamingMovies` VARCHAR(50),
+  `Contract` VARCHAR(50),
+  `PaperlessBilling` VARCHAR(50),
+  `PaymentMethod` VARCHAR(50),
+  `MonthlyCharges` DECIMAL(10,2),
+  `TotalCharges` VARCHAR(50),
+  `Churn` VARCHAR(50)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;"""
 
 def load_data():
@@ -121,10 +124,16 @@ def insert_rows():
     sql = f"INSERT INTO `{TABLE_NAME}` ({col_list}) VALUES ({placeholders})"
     print(f"Inserting {len(df)} rows...")
 
-    # prepare values and convert NaN to None
+    # prepare values and convert NaN/empty strings to None
     values = []
     for row in df.itertuples(index=False, name=None):
-        row_vals = [None if pd.isna(x) else x for x in row]
+        row_vals = []
+        for i, x in enumerate(row):
+            # Convert NaN and empty strings/whitespace to None
+            if pd.isna(x) or (isinstance(x, str) and x.strip() == ''):
+                row_vals.append(None)
+            else:
+                row_vals.append(x)
         values.append(tuple(row_vals))
 
     try:
@@ -147,7 +156,7 @@ def insert_rows():
 
 if __name__ == "__main__":
     print("=" * 60)
-    print("Q1 Data Import to MySQL")
+    print("Q2 Data Import to MySQL")
     print("=" * 60)
     
     try:
